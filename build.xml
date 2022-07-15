@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<project name="org.swtchart.src" basedir="." default="jar">
+
+    <property name="version.number" value="0.9.1"/>
+
+    <!-- APPLIC PROPERTIES -->
+    <property name="bin.dir" location="bin"/>
+    <property name="src.dir" location="src"/>
+
+    <!-- init -->
+    <target name="init" description="Initialization of the project.">
+        <delete dir="${bin.dir}"/>
+        <mkdir dir="${bin.dir}"/>
+    </target>
+
+    <!-- compile -->
+    <target name="compile" depends="init" description="Compilation of the code.">
+        <buildnumber file="build.number"/>
+        <javac destdir="${bin.dir}" debug="on" target="1.8">
+            <src path="${src.dir}"/>
+        </javac>
+    </target>
+
+    <!-- converter -->
+    <target name="jar" depends="compile" description="Builds the jar.">
+        <jar destfile="org.swtchart_${version.number}.b${build.number}.jar" basedir="${bin.dir}">
+            <manifest>
+                <attribute name="Implementation-Title" value="swtchart"/>
+                <attribute name="Implementation-Version" value="${version.number}-b${build.number}"/>
+            </manifest>
+        </jar>    
+    </target>   
+
+</project>
